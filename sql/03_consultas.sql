@@ -210,5 +210,5 @@ FROM vw_vendas
 GROUP BY filial, cidade
 ORDER BY faturamento DESC;
 
-\echo '\n==== Exportando resumo por filial para resultados/tabelas/sql_resumo_filiais.csv ===='
-\copy (SELECT * FROM vw_resumo_filiais) TO 'resultados/tabelas/sql_resumo_filiais.csv' WITH (FORMAT csv, HEADER true, ENCODING 'UTF8')
+\echo '\n==== Exportando resumo por filial para resultados/sql_resumo_filiais.csv ===='
+\copy (SELECT * FROM vw_resumo_filiais) TO 'resultados/sql_resumo_filiais.csv' WITH (FORMAT csv, HEADER true, ENCODING 'UTF8')
