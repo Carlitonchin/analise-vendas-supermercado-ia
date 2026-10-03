@@ -1,7 +1,7 @@
-"""Configurações compartilhadas do pipeline: caminhos, fonte dos dados e credenciais.
+"""Configurações compartilhadas: caminhos, fonte dos dados e credenciais.
 
-As credenciais do PostgreSQL são lidas do arquivo .env (fora do controle de versão).
-Use o .env.example como modelo.
+As credenciais do PostgreSQL são lidas do arquivo .env, que fica fora do
+controle de versão. Use o .env.example como modelo.
 """
 
 import os
@@ -24,7 +24,7 @@ ARQUIVO_CSV_ORIGINAL = DIR_DADOS_RAW / "supermarket_sales.csv"
 ARQUIVO_CSV_EXPORTADO = DIR_DADOS_RAW / "vendas_raw_exportadas.csv"
 ARQUIVO_CSV_TRATADO = DIR_DADOS_PROCESSADOS / "vendas_tratadas.csv"
 
-# Fonte pública do dataset Supermarket Sales (Kaggle), espelhada no Google Drive
+# Fonte pública do dataset Supermarket Sales (Kaggle), cópia no Google Drive
 URL_DATASET = (
     "https://drive.usercontent.google.com/download"
     "?id=1B_EbKoR7mYiSa88fIrpiE02TViFUeOft&export=download&confirm=t"
@@ -57,8 +57,8 @@ def credenciais_banco() -> dict:
     senha = os.getenv("DB_PASSWORD")
     if not senha:
         raise RuntimeError(
-            "Variável DB_PASSWORD não definida. Copie o .env.example para .env "
-            "e preencha as credenciais do PostgreSQL."
+            "Variável DB_PASSWORD não definida. Copie o .env.example "
+            "para .env e preencha as credenciais do PostgreSQL."
         )
     return {
         "host": os.getenv("DB_HOST", "localhost"),

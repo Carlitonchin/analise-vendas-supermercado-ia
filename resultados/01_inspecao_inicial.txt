@@ -71,7 +71,7 @@ Rating                     0
 5. Duplicidades
 ==============================================================================
 Linhas completamente duplicadas: 0
-Invoice ID repetidos:            0
+Invoice ID repetidos: 0
 
 ==============================================================================
 6. Valores distintos das colunas categóricas
@@ -125,9 +125,9 @@ Rating                   1000.0    6.972700    1.718580   4.000000    5.500000  
 ==============================================================================
 Exemplos de Date: ['1/5/2019', '3/8/2019', '3/3/2019']
 Exemplos de Time: ['1:08:00 PM', '10:29:00 AM', '1:23:00 PM']
-Datas no padrão M/D/AAAA:      1000 de 1000
+Datas no padrão M/D/AAAA: 1000 de 1000
 Horas no padrão H:MM:SS AM/PM: 1000 de 1000
-Período coberto: 01/01/2019 a 30/03/2019
+Período: 01/01/2019 a 30/03/2019
 
 ==============================================================================
 9. Pontos de atenção para o ETL

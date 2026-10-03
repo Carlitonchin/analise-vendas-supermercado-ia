@@ -12,7 +12,9 @@ def obter_conexao():
     return psycopg2.connect(**credenciais_banco())
 
 
-def recarregar_tabela(tabela: str, colunas: list[str], linhas: list[tuple]) -> None:
+def recarregar_tabela(
+    tabela: str, colunas: list[str], linhas: list[tuple]
+) -> None:
     """Esvazia a tabela e insere as linhas informadas em uma única transação.
 
     Se qualquer linha violar uma restrição (NOT NULL, CHECK, PRIMARY KEY),
@@ -29,7 +31,9 @@ def recarregar_tabela(tabela: str, colunas: list[str], linhas: list[tuple]) -> N
     try:
         with conexao, conexao.cursor() as cursor:
             cursor.execute(comando_truncate)
-            execute_values(cursor, comando_insert.as_string(cursor), linhas, page_size=500)
+            execute_values(
+                cursor, comando_insert.as_string(cursor), linhas, page_size=500
+            )
     finally:
         conexao.close()
 
