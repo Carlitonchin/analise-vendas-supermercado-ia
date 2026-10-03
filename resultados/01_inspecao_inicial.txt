@@ -1,0 +1,146 @@
+==============================================================================
+1. Dimensões
+==============================================================================
+1000 linhas x 17 colunas
+
+==============================================================================
+2. Primeiras 5 linhas (transpostas)
+==============================================================================
+                                         0                       1                   2                  3                  4
+Invoice ID                     750-67-8428             226-31-3081         631-41-3108        123-19-1176        373-73-7910
+Branch                                Alex                    Giza                Alex               Alex               Alex
+City                                Yangon               Naypyitaw              Yangon             Yangon             Yangon
+Customer type                       Member                  Normal              Normal             Member             Member
+Gender                              Female                  Female              Female             Female             Female
+Product line             Health and beauty  Electronic accessories  Home and lifestyle  Health and beauty  Sports and travel
+Unit price                           74.69                   15.28               46.33              58.22              86.31
+Quantity                                 7                       5                   7                  8                  7
+Tax 5%                             26.1415                    3.82             16.2155             23.288            30.2085
+Sales                             548.9715                   80.22            340.5255            489.048           634.3785
+Date                              1/5/2019                3/8/2019            3/3/2019          1/27/2019           2/8/2019
+Time                            1:08:00 PM             10:29:00 AM          1:23:00 PM         8:33:00 PM        10:37:00 AM
+Payment                            Ewallet                    Cash         Credit card            Ewallet            Ewallet
+cogs                                522.83                    76.4              324.31             465.76             604.17
+gross margin percentage           4.761905                4.761905            4.761905           4.761905           4.761905
+gross income                       26.1415                    3.82             16.2155             23.288            30.2085
+Rating                                 9.1                     9.6                 7.4                8.4                5.3
+
+==============================================================================
+3. Tipos inferidos pelo Pandas
+==============================================================================
+Invoice ID                     str
+Branch                         str
+City                           str
+Customer type                  str
+Gender                         str
+Product line                   str
+Unit price                 float64
+Quantity                     int64
+Tax 5%                     float64
+Sales                      float64
+Date                           str
+Time                           str
+Payment                        str
+cogs                       float64
+gross margin percentage    float64
+gross income               float64
+Rating                     float64
+
+==============================================================================
+4. Valores ausentes por coluna
+==============================================================================
+Invoice ID                 0
+Branch                     0
+City                       0
+Customer type              0
+Gender                     0
+Product line               0
+Unit price                 0
+Quantity                   0
+Tax 5%                     0
+Sales                      0
+Date                       0
+Time                       0
+Payment                    0
+cogs                       0
+gross margin percentage    0
+gross income               0
+Rating                     0
+
+==============================================================================
+5. Duplicidades
+==============================================================================
+Linhas completamente duplicadas: 0
+Invoice ID repetidos:            0
+
+==============================================================================
+6. Valores distintos das colunas categóricas
+==============================================================================
+Branch
+Alex     340
+Cairo    332
+Giza     328
+
+City
+Yangon       340
+Mandalay     332
+Naypyitaw    328
+
+Customer type
+Member    565
+Normal    435
+
+Gender
+Female    571
+Male      429
+
+Product line
+Fashion accessories       178
+Food and beverages        174
+Electronic accessories    170
+Sports and travel         166
+Home and lifestyle        160
+Health and beauty         152
+
+Payment
+Ewallet        345
+Cash           344
+Credit card    311
+
+==============================================================================
+7. Resumo das colunas numéricas
+==============================================================================
+                          count        mean         std        min         25%         50%         75%          max
+Unit price               1000.0   55.672130   26.494628  10.080000   32.875000   55.230000   77.935000    99.960000
+Quantity                 1000.0    5.510000    2.923431   1.000000    3.000000    5.000000    8.000000    10.000000
+Tax 5%                   1000.0   15.379369   11.708825   0.508500    5.924875   12.088000   22.445250    49.650000
+Sales                    1000.0  322.966749  245.885335  10.678500  124.422375  253.848000  471.350250  1042.650000
+cogs                     1000.0  307.587380  234.176510  10.170000  118.497500  241.760000  448.905000   993.000000
+gross margin percentage  1000.0    4.761905    0.000000   4.761905    4.761905    4.761905    4.761905     4.761905
+gross income             1000.0   15.379369   11.708825   0.508500    5.924875   12.088000   22.445250    49.650000
+Rating                   1000.0    6.972700    1.718580   4.000000    5.500000    7.000000    8.500000    10.000000
+
+==============================================================================
+8. Formatos de data e hora (armazenadas como texto)
+==============================================================================
+Exemplos de Date: ['1/5/2019', '3/8/2019', '3/3/2019']
+Exemplos de Time: ['1:08:00 PM', '10:29:00 AM', '1:23:00 PM']
+Datas no padrão M/D/AAAA:      1000 de 1000
+Horas no padrão H:MM:SS AM/PM: 1000 de 1000
+Período coberto: 01/01/2019 a 30/03/2019
+
+==============================================================================
+9. Pontos de atenção para o ETL
+==============================================================================
+- Nomes de colunas em inglês, com espaços e símbolos (ex.: 'Tax 5%'): padronizar para snake_case em português.
+- Date e Time foram lidas como 'str': converter para DATE e TIME.
+- Máximo de casas decimais por coluna numérica (o destino usa NUMERIC(x,2)):
+    Unit price                2
+    Quantity                  0
+    Tax 5%                    4
+    Sales                     4
+    cogs                      2
+    gross margin percentage   9
+    gross income              4
+    Rating                    1
+- 'gross margin percentage' tem 1 valor(es) distinto(s).
