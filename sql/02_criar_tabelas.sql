@@ -17,28 +17,29 @@ DROP TABLE IF EXISTS raw_vendas;
 -- Camada RAW: cópia fiel do CSV original.
 -- Todas as colunas de negócio são TEXT para que nenhum valor seja convertido,
 -- arredondado ou rejeitado na carga. Os nomes seguem o cabeçalho original
--- (em snake_case). As colunas de controle garantem a rastreabilidade de cada
--- registro até o arquivo e a linha de onde ele veio.
+-- (em snake_case), indicado entre aspas em cada comentário. As colunas de
+-- controle garantem a rastreabilidade de cada registro até o arquivo e a
+-- linha de onde ele veio.
 -- -----------------------------------------------------------------------------
 CREATE TABLE raw_vendas (
     id_raw                  INTEGER GENERATED ALWAYS AS IDENTITY,
-    invoice_id              TEXT        NOT NULL,   -- Invoice ID
-    branch                  TEXT,                   -- Branch
-    city                    TEXT,                   -- City
-    customer_type           TEXT,                   -- Customer type
-    gender                  TEXT,                   -- Gender
-    product_line            TEXT,                   -- Product line
-    unit_price              TEXT,                   -- Unit price
-    quantity                TEXT,                   -- Quantity
-    tax_5_percent           TEXT,                   -- Tax 5%
-    sales                   TEXT,                   -- Sales
-    date                    TEXT,                   -- Date  (texto no formato M/D/AAAA)
-    time                    TEXT,                   -- Time  (texto no formato H:MM:SS AM/PM)
-    payment                 TEXT,                   -- Payment
-    cogs                    TEXT,                   -- cogs
-    gross_margin_percentage TEXT,                   -- gross margin percentage
-    gross_income            TEXT,                   -- gross income
-    rating                  TEXT,                   -- Rating
+    invoice_id              TEXT        NOT NULL,   -- "Invoice ID": identificador da venda
+    branch                  TEXT,                   -- "Branch": filial
+    city                    TEXT,                   -- "City": cidade
+    customer_type           TEXT,                   -- "Customer type": tipo de cliente
+    gender                  TEXT,                   -- "Gender": gênero
+    product_line            TEXT,                   -- "Product line": linha de produto
+    unit_price              TEXT,                   -- "Unit price": preço unitário
+    quantity                TEXT,                   -- "Quantity": quantidade
+    tax_5_percent           TEXT,                   -- "Tax 5%": imposto de 5%
+    sales                   TEXT,                   -- "Sales": valor total da venda
+    date                    TEXT,                   -- "Date": data (texto M/D/AAAA)
+    time                    TEXT,                   -- "Time": hora (texto H:MM:SS AM/PM)
+    payment                 TEXT,                   -- "Payment": forma de pagamento
+    cogs                    TEXT,                   -- "cogs": custo das mercadorias vendidas
+    gross_margin_percentage TEXT,                   -- "gross margin percentage": margem bruta (%)
+    gross_income            TEXT,                   -- "gross income": receita bruta
+    rating                  TEXT,                   -- "Rating": avaliação do cliente (0 a 10)
 
     -- Colunas de controle (rastreabilidade)
     arquivo_origem          TEXT        NOT NULL,

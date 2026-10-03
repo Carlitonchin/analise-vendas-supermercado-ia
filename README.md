@@ -33,11 +33,11 @@ e **gráficos** (Resultados).
 |---|---|---|---|
 | 1 | Qual filial apresentou o maior faturamento? | **Giza (Naypyitaw)** | 110.568,71 — 4,1% acima de Alex (106.200,37) |
 | 2 | Qual filial realizou a maior quantidade de vendas? | **Alex (Yangon)** | 340 vendas (1.859 unidades); Cairo vem em seguida com 332 |
-| 3 | Qual linha de produto apresentou o maior faturamento? | **Food and beverages** | 56.144,86 — 1,9% acima de Sports and travel |
-| 4 | Qual linha de produto recebeu a melhor avaliação média? | **Food and beverages** | 7,11 (Fashion accessories: 7,03) |
-| 5 | Qual foi a forma de pagamento mais utilizada? | **Ewallet** | 345 vendas (34,5%) — apenas 1 venda a mais que Cash (344) |
+| 3 | Qual linha de produto apresentou o maior faturamento? | **Alimentos e bebidas** | 56.144,86 — 1,9% acima de Esportes e viagens |
+| 4 | Qual linha de produto recebeu a melhor avaliação média? | **Alimentos e bebidas** | 7,11 (Acessórios de moda: 7,03) |
+| 5 | Qual foi a forma de pagamento mais utilizada? | **Carteira digital** | 345 vendas (34,5%) — apenas 1 venda a mais que Dinheiro (344) |
 | 6 | Qual foi o valor médio das vendas? | **322,97** | Mediana de 253,85: poucas vendas grandes puxam a média para cima |
-| 7 | Qual foi a maior venda registrada? | **1.042,65** | Venda 860-79-0874: 10 × Fashion accessories a 99,30, em Giza, 15/02/2019 |
+| 7 | Qual foi a maior venda registrada? | **1.042,65** | Venda 860-79-0874: 10 × Acessórios de moda a 99,30, em Giza, 15/02/2019 |
 | 8 | Em qual dia da semana ocorreu a maior quantidade de vendas? | **Sábado** | 164 vendas; terça-feira vem em seguida com 158 |
 
 **Leitura para o negócio**
@@ -45,9 +45,9 @@ e **gráficos** (Resultados).
 - **Giza vende menos vezes, mas vende mais caro.** É a filial com menos vendas (328) e,
   ainda assim, a de maior faturamento, com o maior ticket médio (337,10 contra 312,35 de
   Alex e 319,87 de Cairo). Alex tem mais movimento, mas vendas de menor valor.
-- **Food and beverages é a linha mais forte:** lidera em faturamento e em satisfação.
+- **Alimentos e bebidas é a linha mais forte:** lidera em faturamento e em satisfação.
   As diferenças entre as linhas, porém, são pequenas (avaliações entre 6,84 e 7,11).
-- **Pagamentos equilibrados:** Ewallet e Cash estão praticamente empatados; o cartão de
+- **Pagamentos equilibrados:** carteira digital e dinheiro estão praticamente empatados; o cartão de
   crédito fica um pouco atrás (31,1%).
 - **Sábado e terça-feira** concentram mais vendas; segunda-feira é o dia mais fraco (125).
   A maior parte das vendas acontece à tarde (52,8%, entre 12h e 18h).
@@ -56,6 +56,26 @@ As respostas são geradas automaticamente em
 [`resultados/respostas_negocio.md`](resultados/respostas_negocio.md) e também foram
 calculadas diretamente em SQL ([`sql/03_consultas.sql`](sql/03_consultas.sql)), com os
 mesmos resultados.
+
+> **Nomes das categorias:** os dados (camadas Raw e Tratada e as consultas SQL) mantêm os
+> valores originais do dataset, em inglês, para preservar a fidelidade à fonte. Nos
+> resultados (respostas, tabelas e gráficos), as categorias são exibidas em português,
+> conforme a tabela abaixo.
+>
+> | Coluna | Valor original | Em português |
+> |---|---|---|
+> | `linha_produto` | Electronic accessories | Acessórios eletrônicos |
+> | `linha_produto` | Fashion accessories | Acessórios de moda |
+> | `linha_produto` | Food and beverages | Alimentos e bebidas |
+> | `linha_produto` | Health and beauty | Saúde e beleza |
+> | `linha_produto` | Home and lifestyle | Casa e estilo de vida |
+> | `linha_produto` | Sports and travel | Esportes e viagens |
+> | `forma_pagamento` | Cash / Credit card / Ewallet | Dinheiro / Cartão de crédito / Carteira digital |
+> | `tipo_cliente` | Member / Normal | Membro / Normal |
+> | `genero` | Female / Male | Feminino / Masculino |
+>
+> Filiais (Alex, Cairo, Giza) e cidades (Yangon, Mandalay, Naypyitaw) são nomes próprios
+> e não foram traduzidos.
 
 ### Gráficos
 
@@ -195,7 +215,7 @@ O CSV original já está versionado em `data/raw/`. Se ele for apagado, o
 | 1 | `src/01_leitura_dados.py` | Lê o CSV no Pandas, gera o relatório de inspeção (dimensões, tipos, ausentes, duplicidades, categorias, formatos de data/hora) e carrega os registros **sem alteração** na `raw_vendas`. Depois lê a tabela de volta e confere, célula a célula, que o conteúdo é idêntico ao arquivo. |
 | 2 | `sql/03_consultas.sql` | Consultas com `SELECT`, `WHERE`, `AND`, `BETWEEN`, `IN`, `ORDER BY`, `LIMIT`, `GROUP BY`, `HAVING`, `COUNT`, `SUM`, `AVG`, `MIN`, `MAX`, subconsulta e função de janela, respondendo às 8 perguntas direto na camada Raw. Exporta os dados brutos para `data/raw/vendas_raw_exportadas.csv` (com o cabeçalho original) e o resumo por filial para `resultados/sql_resumo_filiais.csv`. |
 | 3 | `src/02_etl_vendas.py` | Padroniza colunas, limpa textos, converte tipos, trata ausentes e duplicados, confere os valores calculados, valida as restrições, cria colunas derivadas, salva o CSV tratado e carrega a `vendas_tratadas`, conferindo a quantidade de registros e a soma do faturamento. |
-| 4 | `src/03_estatistica.py` | Estatística descritiva, frequências das categorias, respostas às perguntas (CSV e Markdown), tabelas agregadas e gráficos. |
+| 4 | `src/03_estatistica.py` | Estatística descritiva, frequências das categorias, respostas às perguntas (CSV e Markdown), tabelas agregadas e gráficos, com as categorias exibidas em português. |
 
 ### Rastreabilidade
 
@@ -293,7 +313,7 @@ amplitude, coeficiente de variação e assimetria).
 - **Preço, quantidade e avaliação** são simétricos (média ≈ mediana).
 - A **margem percentual** é constante (4,76%) em todas as vendas, o que é uma
   característica do dataset.
-- Perfil das vendas: 56,5% de clientes *Member*, 57,1% do gênero feminino e 52,8% das
+- Perfil das vendas: 56,5% de clientes membros, 57,1% do gênero feminino e 52,8% das
   vendas no período da tarde ([`resultados/tabelas/frequencias_categoricas.csv`](resultados/tabelas/frequencias_categoricas.csv)).
 
 ---

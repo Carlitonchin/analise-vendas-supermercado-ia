@@ -34,6 +34,11 @@ COLUNAS_NUMERICAS = [
     "Unit price", "Quantity", "Tax 5%", "Sales", "cogs",
     "gross margin percentage", "gross income", "Rating",
 ]
+ROTULOS_RESUMO = {
+    "count": "contagem", "mean": "media", "std": "desvio_padrao",
+    "min": "minimo", "25%": "q1_25%", "50%": "mediana", "75%": "q3_75%",
+    "max": "maximo",
+}
 PADRAO_DATA = r"^\d{1,2}/\d{1,2}/\d{4}$"  # M/D/AAAA
 PADRAO_HORA = r"^\d{1,2}:\d{2}:\d{2} (?:AM|PM)$"  # H:MM:SS AM/PM
 
@@ -83,7 +88,11 @@ def inspecionar(df_texto: pd.DataFrame) -> str:
 
     secao("1. Dimensões", f"{total} linhas x {df.shape[1]} colunas")
     secao("2. Primeiras 5 linhas (transpostas)", df.head().T.to_string())
-    secao("3. Tipos inferidos pelo Pandas", df.dtypes.to_string())
+    secao(
+        "3. Tipos inferidos pelo Pandas "
+        "(str = texto, int64 = inteiro, float64 = decimal)",
+        df.dtypes.to_string(),
+    )
     secao("4. Valores ausentes por coluna", df.isna().sum().to_string())
     secao(
         "5. Duplicidades",
@@ -97,10 +106,8 @@ def inspecionar(df_texto: pd.DataFrame) -> str:
             for coluna in COLUNAS_CATEGORICAS
         ),
     )
-    secao(
-        "7. Resumo das colunas numéricas",
-        df[COLUNAS_NUMERICAS].describe().T.to_string(),
-    )
+    resumo = df[COLUNAS_NUMERICAS].describe().T.rename(columns=ROTULOS_RESUMO)
+    secao("7. Resumo das colunas numéricas", resumo.to_string())
 
     datas_validas = df_texto["Date"].str.match(PADRAO_DATA).sum()
     horas_validas = df_texto["Time"].str.match(PADRAO_HORA).sum()

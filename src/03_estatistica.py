@@ -30,6 +30,25 @@ COLUNAS_CATEGORICAS = [
     "filial", "cidade", "tipo_cliente", "genero", "linha_produto",
     "forma_pagamento", "dia_semana", "periodo_dia",
 ]
+# Os dados mantêm os valores originais do dataset (em inglês); nos
+# resultados (tabelas, respostas e gráficos) as categorias são traduzidas.
+TRADUCOES = {
+    "linha_produto": {
+        "Electronic accessories": "Acessórios eletrônicos",
+        "Fashion accessories": "Acessórios de moda",
+        "Food and beverages": "Alimentos e bebidas",
+        "Health and beauty": "Saúde e beleza",
+        "Home and lifestyle": "Casa e estilo de vida",
+        "Sports and travel": "Esportes e viagens",
+    },
+    "forma_pagamento": {
+        "Cash": "Dinheiro",
+        "Credit card": "Cartão de crédito",
+        "Ewallet": "Carteira digital",
+    },
+    "tipo_cliente": {"Member": "Membro", "Normal": "Normal"},
+    "genero": {"Female": "Feminino", "Male": "Masculino"},
+}
 COLUNAS_MAIOR_VENDA = [
     "filial", "cidade", "linha_produto", "preco_unitario", "quantidade",
     "imposto", "valor_total", "data_venda", "hora_venda", "forma_pagamento",
@@ -69,6 +88,17 @@ def comparar_com_segundo(serie: pd.Series, casas: int = 2) -> str:
         f"diferença de {formatar_numero(diferenca, casas)} "
         f"({formatar_numero(percentual, 1)}%)"
     )
+
+
+def traduzir_categorias(df: pd.DataFrame) -> pd.DataFrame:
+    """Troca os valores das categorias pelos nomes em português.
+
+    Valores sem tradução cadastrada são mantidos como estão.
+    """
+    df = df.copy()
+    for coluna, traducao in TRADUCOES.items():
+        df[coluna] = df[coluna].replace(traducao)
+    return df
 
 
 def nome_filial(df: pd.DataFrame, filial: str) -> str:
@@ -408,7 +438,7 @@ def p6_p7_valor_vendas(df: pd.DataFrame) -> list[dict]:
                           f" a {formatar_numero(venda['preco_unitario'])} "
                           f"na filial {nome_filial(df, venda['filial'])}, "
                           f"em {venda['data_venda']:%d/%m/%Y}, paga com "
-                          f"{venda['forma_pagamento']}",
+                          f"{venda['forma_pagamento'].lower()}",
         },
     ]
 
@@ -472,6 +502,7 @@ def main() -> None:
     df = pd.read_csv(ARQUIVO_CSV_TRATADO, parse_dates=["data_venda"])
     caminho = ARQUIVO_CSV_TRATADO.relative_to(RAIZ_PROJETO)
     print(f"{len(df)} registros lidos de {caminho}")
+    df = traduzir_categorias(df)
 
     print("\n=== Estatística descritiva ===")
     estatistica_descritiva(df)

@@ -1,2 +1,2 @@
 id_venda,filial,cidade,linha_produto,preco_unitario,quantidade,imposto,valor_total,data_venda,hora_venda,forma_pagamento
-860-79-0874,Giza,Naypyitaw,Fashion accessories,99.3,10,49.65,1042.65,2019-02-15,14:53:00,Credit card
+860-79-0874,Giza,Naypyitaw,Acessórios de moda,99.3,10,49.65,1042.65,2019-02-15,14:53:00,Cartão de crédito
